@@ -1,3 +1,4 @@
+<script language="JavaScript1.2">
 var message="Will you marry me..?"
 var neonbasecolor="#000000"
 var neontextcolor="#ff00ff"
@@ -54,3 +55,6 @@ if (document.all||document.getElementById)
 flashing=setInterval("neon()",flashspeed)
 }
 beginneon()
+
+
+</script>
