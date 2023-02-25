@@ -1,229 +1,56 @@
-/* Circling text trail- Tim Tilton
-
-   Website: http://www.tempermedia.com/
-
-   Visit: http://www.dynamicdrive.com/ for Original Source and tons of scripts
-
-   Modified Here for more flexibility and modern browser support
-
-   Modifications as first seen in http://www.dynamicdrive.com/forums/
-
-   username:jscheuer1 - This notice must remain for legal use
-
-   */
-
-
-
-;(function(){
-
-
-
-// Your message here (QUOTED STRING)
-
-var msg = "Your girl name here...";
-
-
-
-/* THE REST OF THE EDITABLE VALUES BELOW ARE ALL UNQUOTED NUMBERS */
-
-
-
-// Set font's style size for calculating dimensions
-
-// Set to number of desired pixels font size (decimal and negative numbers not allowed)
-
-var size = 34;
-
-
-
-// Set both to 1 for plain circle, set one of them to 2 for oval
-
-// Other numbers & decimals can have interesting effects, keep these low (0 to 3)
-
-var circleY = 0.75; var circleX = 2;
-
-
-
-// The larger this divisor, the smaller the spaces between letters
-
-// (decimals allowed, not negative numbers)
-
-var letter_spacing = 5;
-
-
-
-// The larger this multiplier, the bigger the circle/oval
-
-// (decimals allowed, not negative numbers, some rounding is applied)
-
-var diameter = 15;
-
-
-
-// Rotation speed, set it negative if you want it to spin clockwise (decimals allowed)
-
-var rotation = 0.4;
-
-
-
-// This is not the rotation speed, its the reaction speed, keep low!
-
-// Set this to 1 or a decimal less than one (decimals allowed, not negative numbers)
-
-var speed = 0.3;
-
-
-
-////////////////////// Stop Editing //////////////////////
-
-
-
-if (!window.addEventListener && !window.attachEvent || !document.createElement) return;
-
-
-
-msg = msg.split('');
-
-var n = msg.length - 1, a = Math.round(size * diameter * 0.208333), currStep = 20,
-
-ymouse = a * circleY + 20, xmouse = a * circleX + 20, y = [], x = [], Y = [], X = [],
-
-o = document.createElement('div'), oi = document.createElement('div'),
-
-b = document.compatMode && document.compatMode != "BackCompat"? document.documentElement : document.body,
-
-
-
-mouse = function(e){
-
- e = e || window.event;
-
- ymouse = !isNaN(e.pageY)? e.pageY : e.clientY; // y-position
-
- xmouse = !isNaN(e.pageX)? e.pageX : e.clientX; // x-position
-
-},
-
-
-
-makecircle = function(){ // rotation/positioning
-
- if(init.nopy){
-
-  o.style.top = (b || document.body).scrollTop + 'px';
-
-  o.style.left = (b || document.body).scrollLeft + 'px';
-
- };
-
- currStep -= rotation;
-
- for (var d, i = n; i > -1; --i){ // makes the circle
-
-  d = document.getElementById('iemsg' + i).style;
-
-  d.top = Math.round(y[i] + a * Math.sin((currStep + i) / letter_spacing) * circleY - 15) + 'px';
-
-  d.left = Math.round(x[i] + a * Math.cos((currStep + i) / letter_spacing) * circleX) + 'px';
-
- };
-
-},
-
-
-
-drag = function(){ // makes the resistance
-
- y[0] = Y[0] += (ymouse - Y[0]) * speed;
-
- x[0] = X[0] += (xmouse - 20 - X[0]) * speed;
-
- for (var i = n; i > 0; --i){
-
-  y[i] = Y[i] += (y[i-1] - Y[i]) * speed;
-
-  x[i] = X[i] += (x[i-1] - X[i]) * speed;
-
- };
-
- makecircle();
-
-},
-
-
-
-init = function(){ // appends message divs, & sets initial values for positioning arrays
-
- if(!isNaN(window.pageYOffset)){
-
-  ymouse += window.pageYOffset;
-
-  xmouse += window.pageXOffset;
-
- } else init.nopy = true;
-
- for (var d, i = n; i > -1; --i){
-
-  d = document.createElement('div'); d.id = 'iemsg' + i;
-
-  d.style.height = d.style.width = a + 'px';
-
-  d.appendChild(document.createTextNode(msg[i]));
-
-  oi.appendChild(d); y[i] = x[i] = Y[i] = X[i] = 0;
-
- };
-
- o.appendChild(oi); document.body.appendChild(o);
-
- setInterval(drag, 25);
-
-},
-
-
-
-ascroll = function(){
-
- ymouse += window.pageYOffset;
-
- xmouse += window.pageXOffset;
-
- window.removeEventListener('scroll', ascroll, false);
-
-};
-
-
-
-o.id = 'outerCircleText'; o.style.fontSize = size + 'px';
-
-
-
-if (window.addEventListener){
-
- window.addEventListener('load', init, false);
-
- document.addEventListener('mouseover', mouse, false);
-
- document.addEventListener('mousemove', mouse, false);
-
-  if (/Apple/.test(navigator.vendor))
-
-   window.addEventListener('scroll', ascroll, false);
-
+var message="Will you marry me..?"
+var neonbasecolor="#000000"
+var neontextcolor="#ff00ff"
+var neontextcolor2="#e43ee4"
+var flashspeed=100						// speed of flashing in milliseconds
+var flashingletters=4						// number of letters flashing in neontextcolor
+var flashingletters2=2					// number of letters flashing in neontextcolor2 (0 to disable)
+var flashpause=0						// the pause between flash-cycles in milliseconds
+
+///No need to edit below this line/////
+
+var n=0
+if (document.all||document.getElementById){
+document.write('<font color="'+neonbasecolor+'">')
+for (m=0;m<message.length;m++)
+document.write('<span id="neonlight'+m+'">'+message.charAt(m)+'</span>')
+document.write('</font>')
+}
+else
+document.write(message)
+
+function crossref(number){
+var crossobj=document.all? eval("document.all.neonlight"+number) : document.getElementById("neonlight"+number)
+return crossobj
 }
 
-else if (window.attachEvent){
+function neon(){
 
- window.attachEvent('onload', init);
+//Change all letters to base color
+if (n==0){
+for (m=0;m<message.length;m++)
+crossref(m).style.color=neonbasecolor
+}
 
- document.attachEvent('onmousemove', mouse);
+//cycle through and change individual letters to neon color
+crossref(n).style.color=neontextcolor
 
-};
-
-
-
-})();
+if (n>flashingletters-1) crossref(n-flashingletters).style.color=neontextcolor2 
+if (n>(flashingletters+flashingletters2)-1) crossref(n-flashingletters-flashingletters2).style.color=neonbasecolor
 
 
+if (n<message.length-1)
+n++
+else{
+n=0
+clearInterval(flashing)
+setTimeout("beginneon()",flashpause)
+return
+}
+}
 
-
+function beginneon(){
+if (document.all||document.getElementById)
+flashing=setInterval("neon()",flashspeed)
+}
+beginneon()
