@@ -55,4 +55,4 @@ if (document.all||document.getElementById)
 flashing=setInterval("neon()",flashspeed)
 }
 beginneon()
-
+;
