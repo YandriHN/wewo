@@ -1,7 +1,3 @@
-<script type="text/javascript">
-
-
-
 /* Circling text trail- Tim Tilton
 
    Website: http://www.tempermedia.com/
@@ -230,4 +226,4 @@ else if (window.attachEvent){
 
 
 
-</script>
+
