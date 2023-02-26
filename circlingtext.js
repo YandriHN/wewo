@@ -1,5 +1,5 @@
 
-var message="Will you marry me..?"
+var message="Will you marry me...?"
 var neonbasecolor="#000000"
 var neontextcolor="#ff00ff"
 var neontextcolor2="#e43ee4"
